@@ -14,7 +14,7 @@ const ImageCacheManager = require('./ImageCacheManager');
 
 const {
     View,
-    ImageBackground,
+    Image,
     ActivityIndicator,
     NetInfo,
     Platform,
@@ -52,10 +52,25 @@ class CachedImage extends React.Component {
     };
 
     static defaultProps = {
-            renderImage: props => (<ImageBackground imageStyle={props.style} ref={CACHED_IMAGE_REF} {...props} />),
+            renderImage: props => (<Image imageStyle={props.style} ref={CACHED_IMAGE_REF} {...props} />),
             activityIndicatorProps: {},
     };
 
+    static getSize(
+        uri,
+        success,
+        failure
+      ) {
+
+        imageCacheManager.downloadAndCacheUrl(url, options)
+            .then(cachedImagePath => {
+                Image.getSize(cachedImagePath, success, failure);
+            })
+            .catch(err => {
+                failure(err);
+            });
+        
+    }
     static contextTypes = {
         getImageCacheManager: PropTypes.func,
     };
