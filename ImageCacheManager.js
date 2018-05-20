@@ -30,7 +30,7 @@ module.exports = (defaultOptions = {}, urlCache = MemoryCache, fs = fsUtils, pat
         // allow CachedImage to provide custom options
         _.defaults(options, defaultOptions);
         // cacheableUrl contains only the needed query params
-        const cacheableUrl = path.getCacheableUrl(url, options.useQueryParamsInCacheKey);
+        const cacheableUrl = url;
         // note: urlCache may remove the entry if it expired so we need to remove the leftover file manually
         return urlCache.get(cacheableUrl)
             .then(fileRelativePath => {
